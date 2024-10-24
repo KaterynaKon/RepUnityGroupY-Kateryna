@@ -18,7 +18,7 @@ public class newscript : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
 
         { edAnimator.SetBool("isRunning", true);
-            transform.position += speed * transform.forward * Time.deltaTime;
+transform.position += speed * transform.forward * Time.deltaTime;
         }
         else edAnimator.SetBool("isRunning", false);
 
@@ -31,6 +31,13 @@ public class newscript : MonoBehaviour
         else edAnimator.SetBool("isbackWalk", false);
 
 
+        if (Input.GetKey(KeyCode.Y))
+
+        {
+            edAnimator.SetBool("iswave", true);
+           // transform.position += speed * transform.forward * Time.deltaTime;
+        }
+        else edAnimator.SetBool("iswave", false);
 
 
     }
