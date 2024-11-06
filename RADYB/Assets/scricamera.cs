@@ -4,11 +4,14 @@ using UnityEditor;
 using UnityEngine;
 
 public class scricamera : MonoBehaviour
-{ float speed = 3;
+{
+    public GameObject knifeCloneTemplete;
+    float speed = 3;
 
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         
     }
 
@@ -16,17 +19,27 @@ public class scricamera : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.W))
+
         {
-            transform.position += speed * transform.forward * Time.deltaTime;
+            Vector3 fpsMovementDir = new Vector3(transform.forward.x, 0, transform.forward.z);
+            fpsMovementDir.Normalize();
+            transform.position += speed * fpsMovementDir * Time.deltaTime;
 
         }
         if (Input.GetKey(KeyCode.S))
+
         {
-            transform.position -= speed * transform.forward * Time.deltaTime;
+            Vector3 fpsMovementDir = new Vector3(transform.forward.x, 0, transform.forward.z);
+            transform.position -= speed * fpsMovementDir * Time.deltaTime;
 
         }
 
-        transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"));
-        transform.Rotate(Vector3.right, Input.GetAxis("Vertical"));
+        transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"), Space.World);
+        transform.Rotate(transform.right, Input.GetAxis("Vertical"), Space.World);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(knifeCloneTemplete, transform.position,transform.rotation);
+        }
     }
 }
