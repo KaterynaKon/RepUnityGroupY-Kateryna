@@ -24,9 +24,19 @@ public class explodeScript : MonoBehaviour
         Collider[] allVictimCollider = Physics.OverlapSphere(transform.position, ExplosionRadius);
         foreach (Collider collider in allVictimCollider)
         {
-            Rigidbody rigidbody = collider.GetComponent<Rigidbody>();
-            if (rigidbody != null) {
-                rigidbody.AddExplosionForce(ExplosionStrangth, transform.position, ExplosionRadius);
+            person personVictim = collider.GetComponent<person>();
+            if (personVictim != null)
+            {
+                personVictim.ExplosionAt(transform.position,ExplosionRadius, ExplosionStrangth);
+
+            }
+            else
+            {
+                Rigidbody rigidbody = collider.GetComponent<Rigidbody>();
+                if (rigidbody != null)
+                {
+                    rigidbody.AddExplosionForce(ExplosionStrangth, transform.position, ExplosionRadius);
+                }
             }
         }
         Destroy(gameObject);
