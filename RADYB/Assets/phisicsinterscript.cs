@@ -14,9 +14,6 @@ public class phisicsinterscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(new Vector3(0, 10, 0), ForceMode.Impulse);
-        }
+        
     }
 }
