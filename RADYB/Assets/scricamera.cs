@@ -6,23 +6,33 @@ using UnityEngine;
 public class scricamera : MonoBehaviour
 {
     public GameObject knifeCloneTemplete;
+    public Camera mainCamera;
+    public float jumpForce = 5f;
+
     float speed = 3;
     float sprintSpeed = 6;
+    //float jumpForce = 5f;
+    float jumpSpeed = 15f;
+    Rigidbody rb;
 
     private float currentSpeed;
-
+   // private bool isGrounded = true;
+    //private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        rb = GetComponent<Rigidbody>();
         
     }
-
+    
     // Update is called once per frame
     void Update()
     {
         currentSpeed = Input.GetKey(KeyCode.LeftShift) ?
             sprintSpeed : speed;
+       
+
         if (Input.GetKey(KeyCode.W))
 
         {
@@ -45,7 +55,7 @@ public class scricamera : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(knifeCloneTemplete, transform.position, transform.rotation);
+            Instantiate(knifeCloneTemplete, transform.position + 2* transform.forward, transform.rotation);
         }
         if (Input.GetKey(KeyCode.D))
 
@@ -60,6 +70,13 @@ public class scricamera : MonoBehaviour
             Vector3 fpsMovementDir = new Vector3(transform.right.x, 0, transform.right.z);
             fpsMovementDir.Normalize();
             transform.position -= currentSpeed * fpsMovementDir * Time.deltaTime;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Vector3 fpsMovementDir =Vector3.up;
+            
+            fpsMovementDir.Normalize();
+            rb.AddForce(jumpForce*Vector3.up,ForceMode.Impulse);
         }
     }
     }
